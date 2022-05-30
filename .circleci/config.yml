@@ -11,7 +11,7 @@ jobs:
         default: "15.10.0"
     docker:
       - image: cimg/node:<< parameters.node-version >>
-    parallelism: 8
+    parallelism: 10
     steps:
       - checkout
       - node/install-packages
