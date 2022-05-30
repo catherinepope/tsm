@@ -7,6 +7,7 @@ jobs:
   test-1:
     docker: 
       - image: cimg/node:13.8
+    resource_class: small
     steps:
       - checkout
       - node/install-packages
@@ -15,6 +16,7 @@ jobs:
   test-2:
     docker: 
       - image: cimg/node:14.2
+    resource_class: small
     steps:
       - checkout
       - node/install-packages
@@ -23,6 +25,7 @@ jobs:
   test-3:
     docker: 
       - image: cimg/node:15.11
+    resource_class: small
     steps:
       - checkout
       - node/install-packages
