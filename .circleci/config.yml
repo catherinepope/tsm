@@ -11,7 +11,7 @@ jobs:
         default: "15.10.0"
     docker:
       - image: cimg/node:<< parameters.node-version >>
-    parallelism: 4
+    parallelism: 8
     steps:
       - checkout
       - node/install-packages
@@ -21,7 +21,7 @@ jobs:
             circleci tests glob "test/**/*.test.js" | circleci tests split |
             xargs npm run test-ci
       - run:
-          name: Copy tests results for storing
+          name: Copy test results for storing
           command: |
             mkdir ~/test-results
             cp test-results.xml ~/test-results/
