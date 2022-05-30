@@ -3,6 +3,8 @@ version: 2.1
 orbs:
   node: circleci/node@4.7.0
 
+# These three jobs are running exactly the same suite of tests, but on a different version of Node each time.
+
 jobs:      
   test-1:
     docker: 
