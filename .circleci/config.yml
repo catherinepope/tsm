@@ -6,7 +6,8 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: cimg/<< parameters.node-version >>
+      - image: cimg/node:<< parameters.node-version >>
+    resource_class: large
     parallelism: 8
     steps:
       - checkout
