@@ -4,9 +4,25 @@ orbs:
   node: circleci/node@4.7.0
 
 jobs:      
-  run-tests-nosplit:
+  test-1:
     docker: 
-      - image: cimg/node:15.10.0
+      - image: cimg/node:13.8
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run test-ci
+  test-2:
+    docker: 
+      - image: cimg/node:14.2
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run test-ci
+  test-3:
+    docker: 
+      - image: cimg/node:15.11
     steps:
       - checkout
       - node/install-packages
@@ -14,7 +30,9 @@ jobs:
           command: npm run test-ci
 
 workflows:
-  Testing-Workflow:
+  Testing:
     jobs:
-      - run-tests-nosplit
+      - test-1
+      - test-2
+      - test-3
   
