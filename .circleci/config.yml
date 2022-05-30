@@ -16,6 +16,7 @@ jobs:
       - checkout
       - node/install-packages
       - run:
+          name: Run tests
           command: |
             echo $(circleci tests glob "test/**/*.test.js")
             circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings |
@@ -39,7 +40,6 @@ jobs:
       - store_artifacts:
           path: ~/test-results
       
-  
 workflows:
   Testing-Workflow:
       jobs:
