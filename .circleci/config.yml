@@ -16,7 +16,6 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - run: mkdir ~/junit
       - run:
           name: Test application
           command: |
@@ -25,7 +24,8 @@ jobs:
       - run:
           name: Copy test results for storing
           command: |
-            cp junit.xml ~/junit/
+            mkdir ~/test-results
+            cp test-results.xml ~/test-results/
           when: always
       - store_test_results:
           path: ~/test-results
