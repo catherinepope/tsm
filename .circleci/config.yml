@@ -11,30 +11,22 @@ jobs:
         default: "15.10.0"
     docker:
       - image: cimg/node:<< parameters.node-version >>
-    parallelism: 10
+    parallelism: 5
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
-          name: Run tests
+          name: Test application
           command: |
-            echo $(circleci tests glob "test/**/*.test.js")
-            circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings |
-            xargs npm run test-ci
+            TEST=$(circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings)
+            yarn test $TEST
       - run:
           name: Copy test results for storing
           command: |
-            mkdir ~/test-results
-            cp test-results.xml ~/test-results/
+            mkdir ~/junit
+            cp junit.xml ~/junit/
           when: always
-      - run:
-          name: Process test report
-          when: always
-          command: |
-              # Convert absolute paths to relative to support splitting tests by timing
-              if [ -e ~/test-results.xml ]; then
-                sed -i "s|`pwd`/||g" ~/test-results.xml
-              fi
       - store_test_results:
           path: ~/test-results
       - store_artifacts:
