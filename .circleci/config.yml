@@ -7,7 +7,7 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/node:15.10.0
-    parallelism: 4
+    parallelism: 8
     steps:
       - checkout
       - node/install-packages
