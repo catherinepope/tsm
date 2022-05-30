@@ -18,7 +18,7 @@ jobs:
       - run:
           command: |
             echo $(circleci tests glob "test/**/*.test.js")
-            circleci tests glob "test/**/*.test.js" | circleci tests split |
+            circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings |
             xargs npm run test-ci
       - run:
           name: Copy test results for storing
