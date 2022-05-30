@@ -15,12 +15,12 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          pkg-manager: yarn
       - run:
           name: Test application
           command: |
-            TEST=$(circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings)
-            yarn test $TEST
+            echo $(circleci tests glob "test/**/*.test.js")
+            circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings --timings-type=classname |
+            xargs npm run test-ci
       - run:
           name: Copy test results for storing
           command: |
